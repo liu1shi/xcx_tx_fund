@@ -1,0 +1,18 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/detail/detail",
+    "pages/indexList/indexList",
+    "pages/list/list",
+    "pages/memberDetail/memberDetail",
+    "pages/news/news"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#3481F6",
+    "navigationBarTitleText": "Demo",
+    "navigationBarTextStyle": "white",
+    "navigationStyle":"default"
+  },
+  "sitemapLocation": "sitemap.json"
+}

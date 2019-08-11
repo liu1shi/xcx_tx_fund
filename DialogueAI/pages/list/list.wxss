@@ -1,0 +1,54 @@
+.h3 {
+    height:3rpx;
+}
+
+.baseImg {
+    left:0;
+    top:0;
+    right:0;
+    height:366rpx;
+}
+
+.content {
+    left:20rpx;
+    top:20rpx;
+    right:20rpx;
+    box-shadow: 0 4px 10px 0 #F0F0F0;
+    border-radius: 40rpx;
+    min-height:500rpx;
+}
+
+.w35p {
+    width:35%;
+}
+
+.w65p {
+    width:65%;
+}
+
+.c-F93A3A {
+    color: #F93A3A;
+}
+
+.c-21A055 {
+    color: #21A055;
+}
+
+.c-0059ED{
+    color: #0059ED;
+}
+
+.bc-DADADA {
+   background-color:#DADADA;
+}
+
+.ml50{margin-left:50rpx !important}
+.mr50{margin-right:50rpx !important}
+
+.ff-pr {
+    font-family: PingFangSC-Regular;
+}
+
+.ff-db {
+    font-family: DINAlternate-Bold;
+}

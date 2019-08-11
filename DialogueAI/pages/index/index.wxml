@@ -1,0 +1,41 @@
+
+<wxs src="../../public/method/wxMethod.wxs" module="WxMethod" />
+
+<view class="pr bc-fff" wx:if="{{authInfo}}">
+    <image class="w100 pa baseImg" src="../../resource/image/Combined_Shape.png"></image>
+    <view class="content pa mb30">
+        <view class="mt30 flexCenter">
+            <image mode="aspectFit" src="../../resource/image/dotLeft.png" style="width:60rpx;height:30rpx;"></image>
+            <view class=" fs40 c-fff ml30 mr30">精选基金</view>
+            <image mode="aspectFit" src="../../resource/image/dotRight.png" style="width:60rpx;height:30rpx;"></image>
+        </view>
+        <view class="mb30 pb30 mt10 flexCenter">
+            <image src="../../resource/image/tit.png" style="width:25rpx;height:25rpx;"></image>
+            <text class="fs24 c-fff ws-nm ml10">根据您的风险偏好和投资习惯生成</text>
+        </view>
+        <view class="mb30">
+            <view class="cell mt30 flexCenter flexDirectionColumn bc-fff" wx:for="{{arrayData}}" wx:key="*this" data-index="{{index}}" data-item="{{item}}" bindtap="btnClick">
+                <view class="flexCenter flexJustifyAround w100 mt30">
+                    <view class="h3 bc-DADADA w25p"></view>
+                    <view class="ff-pm fs32 c-333">{{item.FundInvestmentType}}</view>
+                    <view class="h3 bc-DADADA w25p"></view>
+                </view>
+                <view class="ff-pr fs34 c-333 m30">{{item.FundName}} ({{item.FundCode}})</view>
+                <view class="flexCenter w100 mb30">
+                    <view class="flexCenter flexDirectionColumn w50p">
+                        <view class="ff-db fs40 c-333">{{item.FundUnitNetValue}}</view>
+                        <view class="ff-pr fs26 c-666 mt5">单位净值(元)</view>
+                    </view>
+                    <view class="flexCenter flexDirectionColumn w50p">
+                        <view class="ff-db fs40 {{WxMethod.compareZero(item.FundValuationChange)}}">{{WxMethod.floatCut(item.FundValuationChange)}}%</view>
+                        <view class="ff-pr fs26 c-666 mt5">日涨跌幅</view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
+<view class="centerV pf w100 h100" wx:else>
+  <text class="m30">请允许我们获取您的用户信息，以向您提供更好的服务</text>
+  <button class="" open-type='getUserInfo' bindgetuserinfo="getUserInfo">获取信息</button>
+</view>

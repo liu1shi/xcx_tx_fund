@@ -1,0 +1,65 @@
+
+.ffpm {
+    font-family: PingFangSC-Medium;
+}
+
+.ffpr {
+    font-family: PingFangSC-Regular;
+}
+
+.ffdb {
+    font-family: DINAlternate-Bold;
+}
+
+.w33p {
+    width:33%;
+}
+
+.bc-F6F6F6 {
+    background: #F6F6F6;
+}
+
+.c-F93A3A {
+    color: #F93A3A;
+}
+
+.c-21A055 {
+    color: #21A055;
+}
+
+.c-0059ED {
+    color: #0059ED;
+}
+
+.bc-DADADA {
+   background-color:#DADADA;
+}
+
+.h3 {
+    height:3rpx;
+}
+
+.border3 {
+    border: 3rpx solid #DDDDDD;
+    border-radius: 8rpx;
+}
+
+
+.lrtb0 {
+  left:0;
+  right:0;
+  top:0;
+  bottom:0;
+}
+
+.model {
+  background-color:rgba(0,0,0,0.3);
+}
+
+.modContent {
+    width:calc(100% - 190rpx);
+    border-radius: 8rpx;
+    min-height:285rpx;
+}
+
+

@@ -1,0 +1,58 @@
+
+page {
+    height: 100%;
+}
+
+.w25p {
+    width:25%;
+ }
+
+.h3 {
+    height:3rpx;
+}
+
+.baseImg {
+    left:0;
+    top:0;
+    right:0;
+    height:366rpx;
+}
+
+.content {
+    left:20rpx;
+    top:20rpx;
+    right:20rpx;
+}
+
+.cell {
+    box-shadow: 0 4px 24px 0 #DADADA;
+    border-radius: 10px;
+}
+
+.bc-DADADA {
+   background-color:#DADADA;
+}
+
+.ff-pr {
+    font-family: PingFangSC-Regular;
+}
+
+.ff-pm {
+    font-family: PingFangSC-Medium;
+}
+
+.ff-db {
+    font-family: DINAlternate-Bold;
+}
+
+.c-F93A3A {
+    color: #F93A3A;
+}
+
+.c-21A055 {
+    color: #21A055;
+}
+
+.w50p {
+    width:50%;
+}

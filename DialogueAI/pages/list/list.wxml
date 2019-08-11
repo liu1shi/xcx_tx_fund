@@ -1,0 +1,25 @@
+
+<wxs src="../../public/method/wxMethod.wxs" module="WxMethod" />
+
+<view class="pr">
+    <image class="w100 pa baseImg" src="../../resource/image/Combined_Shape.png"></image>
+    <view class="content bc-fff pa mb30">
+        <view class="flexCenter flexJustifyBetween mb30 mt30">
+            <view class="fs30 c-333 ml50">基金名称</view>
+            <view class="fs30 c-333 mr50">年收益率</view>
+        </view>
+        <view class="h3 bc-DADADA"></view>
+        <view class="mb30">
+            <view wx:for="{{arrayData}}" wx:key="*this">
+                <view class="flexCenter m20">
+                    <view class="flexCenter flexDirectionColumn flexAlignStart w65p">
+                        <view class="ff-pr fs28 c-0059ED">{{item.FundName}}</view>
+                        <view class="ff-pr fs24 c-999">{{item.FundCode}}</view>
+                    </view>
+                    <view class="ff-db fs34 c-F93A3A flexCenter flexDirectionColumn flexAlignEnd mr30 w35p">{{WxMethod.floatCut(item.FundReturnRate)}}%</view>
+                </view>
+                <view class="h3 bc-DADADA ml20"></view>
+            </view>
+        </view>
+    </view>
+</view>
