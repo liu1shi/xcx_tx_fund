@@ -9,10 +9,13 @@
     height:366rpx;
 }
 
+.contentBase {
+    left:0;
+    top:0;
+    right:0;
+}
+
 .content {
-    left:20rpx;
-    top:20rpx;
-    right:20rpx;
     box-shadow: 0 4px 10px 0 #F0F0F0;
     border-radius: 40rpx;
     min-height:500rpx;

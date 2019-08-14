@@ -20,9 +20,22 @@ Page({
 
     FundTypeCode = options.FundTypeCode
     FundInvestmentCode = options.FundInvestmentCode
-    wx.setNavigationBarTitle({
-      title: options.FundType + '行业基金排名'
-    })
+
+
+    if (FundTypeCode && FundTypeCode != 'undefined' && FundInvestmentCode && FundInvestmentCode != 'undefined') {
+      wx.setNavigationBarTitle({
+        title: options.FundInvestmentType + options.FundType + '行业基金排名'
+      })
+    } else if (FundTypeCode && FundTypeCode != 'undefined') {
+      wx.setNavigationBarTitle({
+        title: options.FundType + '行业基金排名'
+      })
+    } else if (FundInvestmentCode && FundInvestmentCode != 'undefined') {
+      wx.setNavigationBarTitle({
+        title: options.FundInvestmentType + '基金排名'
+      })
+    }
+    
 
     this.refresh()
   },
@@ -50,9 +63,14 @@ Page({
     i = 1
     var that = this
 
-    var params = {
-      // "FundType": FundTypeCode,
-      "InvestmentTypeCode": FundInvestmentCode
+    var params = {}
+
+    if (FundTypeCode && FundTypeCode != 'undefined') {
+      params['FundTypeCode'] = FundTypeCode
+    }
+
+    if (FundInvestmentCode  && FundInvestmentCode != 'undefined') {
+      params['InvestmentTypeCode'] = FundInvestmentCode
     }
 
     SendReq.kgraphFund_type(params,function (res) {
@@ -60,6 +78,15 @@ Page({
       that.setData({
         arrayData: resData.data.FundList.slice(0,20)
       })
+    })
+  },
+
+  clickDetail: function(e) {
+    var item = e.currentTarget.dataset.item
+    var params = "FundCode=" + item.FundCode + "&Fund300Index=" + 0
+
+    wx.navigateTo({
+      url: '../detail/detail?' + params
     })
   }
 

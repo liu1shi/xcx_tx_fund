@@ -3,48 +3,50 @@
 <view class="pr">
     <image class="pa baseImg w100" src="../../resource/image/Combined_Shape.png"></image>
     <view class="contentBase pa">
-        <view class="flexCenter flexJustifyBetween m30">
-            <view class="h3 bc-fff w25p"></view>
-            <view class="ff-pm fs40 c-fff">沪深300指数</view>
-            <view class="h3 bc-fff w25p"></view>
-        </view>
-        <view class="ffpr fs24 c-fff m30">沪深300指数是由上海和深圳证券市场中选取300只A股作为样本，覆盖了沪深市场六成左右的市值，具有良好的市场代表性。</view>
-        <view>
+        <view class="mb30">
+            <view class="flexCenter flexJustifyBetween ml30 mr30">
+                <view class="h3 bc-fff w25p"></view>
+                <view class="ff-pm fs40 c-fff mt30 mb30">沪深300指数</view>
+                <view class="h3 bc-fff w25p"></view>
+            </view>
+            <view class="ffpr fs24 c-fff ml30 mr30">
+                沪深300指数是由上海和深圳证券市场中选取300只A股作为样本，覆盖了沪深市场六成左右的市值，具有良好的市场代表性。
+            </view>
+            
             <view class="mt80 ml20 mr20 h94 zind5">
                 <view class="pr w100 h100">
                     <image mode="aspectFill" class="pa contentBase h100 wAuto {{isClickLeft ? 'mr30' : 'ml30'}}" src="{{isClickLeft ? '../../resource/image/leftWhite.png' : '../../resource/image/rightWhite.png'}}"></image>
-                    <view class="pa contentBase flexCenter">
+                    <view class="pa contentBase w100 h100 flexCenter">
                         <view class="w50p  h100" bindtap="btnLeft"></view>
                         <view class="w50p  h100" bindtap="btnRight"></view>
                     </view>
                 </view>
             </view>
-            <view class="content bc-fff ml28 mr28 border zind4 mb30 {{isClickLeft ? 'brLeft' : 'brRight'}}">
-                <view class="flexCenter mt80">
-                    <image src="../../resource/image/good.png" style="width:25rpx;height:25rpx;"></image>
-                    <text class="fs24 c-666 ws-nm ml10">跟踪误差的值越小，更能获取与沪深300指数一致的收益</text>
+            <view class="content bc-fff ml20 mr20 border zind4 {{isClickLeft ? 'brLeft' : 'brRight'}}">
+                <view class="mt40 ml30 mr30 flexCenter flexAlignStart">
+                    <view class="mr10">
+                        <image mode="aspectFit" src="../../resource/image/tit_blue.png" style="width:25rpx;height:25rpx;"></image>
+                     </view>   
+                    <view class="fs24 c-666 mt10">{{isClickLeft ? '指数型基金以沪深300指数为标的指数，并以该指数的成份股为投资对象，通过购买该指数的成分股构建投资组合，以追踪标的指数表现的基金产品。跟踪误差的值越小，更能获取与沪深300指数一致的收益。' : '增强型指数基金是将被动的指数基金往主动投资方向靠在尽可能保持指数基金的特征上，通过调整个股，从而获取高于标的指数的回报率。'}}</view>
                 </view>
                 <view class="flexCenter mt30">
-                    <view class="fs30 c-333 flexCenter flexDirectionColumn flexAlignStart {{isClickLeft ? 'w50p' : 'w65p'}} m20">基金名称</view>
-                    <view class="fs30 c-333 flexCenter {{isClickLeft ? 'w25p' : 'w35p'}}">指数误差率</view>
-                    <view class="fs30 c-333 flexCenter {{isClickLeft ? 'w25p' : ''}}" hidden="{{!isClickLeft}}">年收益率</view>
+                    <view class="fs30 c-333 flexCenter flexDirectionColumn flexAlignStart {{isClickLeft ? 'w65p' : 'w50p'}} m20">基金名称</view>
+                    <view class="fs30 c-333 flexCenter {{isClickLeft ? 'w35p' : 'w25p'}}">指数误差率</view>
+                    <view class="fs30 c-333 flexCenter {{isClickLeft ? '' : 'w25p'}}" hidden="{{isClickLeft}}">近1年收益率</view>
                 </view>
                 <view class="h3 bc-DADADA"></view>
-
-                <view class="">
-                    <view wx:for="{{arrayData}}" wx:key="*this">
-                        <view class="flexCenter">
-                            <view class="flexCenter flexDirectionColumn flexAlignStart {{isClickLeft ? 'w50p' : 'w65p'}} m20">
-                                <view class="ff-pr fs28 c-0059ED">{{item.FundName}}</view>
-                                <view class="ff-pr fs24 c-999">{{item.FundCode}}</view>
-                            </view>
-                            <view class="ff-db fs34 flexCenter {{isClickLeft ? 'w25p' : 'w35p'}} {{WxMethod.compareZero(item.FundErrorRate)}}">{{WxMethod.floatCut(item.FundErrorRate)}}%</view>
-                            <view class="fs24 flexCenter {{isClickLeft ? 'w25p' : ''}} {{WxMethod.compareZero(item.FundYearReturnRate)}}" hidden="{{!isClickLeft}}">{{WxMethod.floatCut(item.FundYearReturnRate)}}%</view>
+                
+                <view wx:for="{{arrayData}}" wx:key="*this">
+                    <view class="flexCenter">
+                        <view class="flexCenter flexDirectionColumn flexAlignStart {{isClickLeft ? 'w65p' : 'w50p'}} m20">
+                            <view class="ff-pr fs28 c-0059ED" data-item="{{item}}" bindtap="clickDetail">{{item.FundName}}</view>
+                            <view class="ff-pr fs24 c-999">{{item.FundCode}}</view>
                         </view>
-                        <view class="h3 bc-DADADA ml20 mr20"></view>
+                        <view class="ff-pr fs24 flexCenter {{isClickLeft ? 'w35p' : 'w25p'}} c-333">{{WxMethod.floatCut(item.FundErrorRate,4,false)}}%</view>
+                        <view class="ff-pr fs24 flexCenter {{isClickLeft ? '' : 'w25p'}} {{WxMethod.compareZero(item.FundYearReturnRate)}}" hidden="{{isClickLeft}}">{{WxMethod.floatCut(item.FundYearReturnRate,2,false,true)}}%</view>
                     </view>
+                    <view class="h3 bc-DADADA ml20"></view>
                 </view>
-
             </view>
         </view>
     </view>

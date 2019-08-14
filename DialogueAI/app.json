@@ -10,7 +10,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#3481F6",
-    "navigationBarTitleText": "Demo",
+    "navigationBarTitleText": "基金知识图谱体验",
     "navigationBarTextStyle": "white",
     "navigationStyle":"default"
   },

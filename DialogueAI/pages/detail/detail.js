@@ -4,6 +4,7 @@
 
 var SendReq = require('../../public/network/sendreq.js')
 var PublicMethod = require('../../public/method/publicMethod.js')
+var PublicUserdefault = require('../../public/method/publicUserdefault.js')
 
 
 var lsyjArr,yjphArr
@@ -11,7 +12,6 @@ var lsyjArr,yjphArr
 Page({
 
   data: {
-    preData: {},
     arrayData: {},
     lsyjData: [],
     yjphData: [],
@@ -20,31 +20,33 @@ Page({
     isLsyjMore: false,
     isyjphMore: false,
     isJqjzMore: false,
-    messageData: []
+    messageData: [],
+    face:'',
+    RecommendArr: []
   },
 
   onLoad: function (options) {
 
-    this.setData({
-      preData: JSON.parse(options.preData)
-    })
+    this.randFace()
+
+    var FundCode = options.FundCode
+    var Fund300Index = options.Fund300Index
 
     var params = {
-      "FundCode": this.data.preData.FundCode,
-      "FundManagerCode": this.data.preData.FundManagerCode
+      "FundCode": FundCode
     }
 
-    if (this.data.preData.Fund300Index == 1) {
+    if (Fund300Index == 1) {
       var that = this
       SendReq.kgraphEnhanced_index_funds(params,function (res) {
         that.fundRes(res)
       })
-    } else if (this.data.preData.Fund300Index == 2) {
+    } else if (Fund300Index == 2) {
       var that = this
       SendReq.kgraphIndex_funds(params,function (res) {
         that.fundRes(res)
       })
-    } else if (this.data.preData.Fund300Index == 0) {
+    } else if (Fund300Index == 0) {
       var that = this
       SendReq.kgraphType_funds(params,function (res) {
           that.fundRes(res)
@@ -55,33 +57,18 @@ Page({
 
 
   fundRes: function (res) {
-      var lsyjJson = res.data.data.fund_performance.data
-      var yjphJson = res.data.data.fund_rank.data
-      lsyjArr = [
-        {"text":"近1月","value":lsyjJson.FundChangeRate1Month},
-        {"text":"近3月","value":lsyjJson.FundChangeRate3Month},
-        {"text":"近6月","value":lsyjJson.FundChangeRate6Month},
-        {"text":"近1年","value":lsyjJson.FundChangeRate1Year},
-        {"text":"近2年","value":lsyjJson.FundChangeRate2Year},
-        {"text":"近3年","value":lsyjJson.FundChangeRate3Year},
-        {"text":"近5年","value":lsyjJson.FundChangeRate5Year}
-      ]
-      yjphArr = [
-        {"text":"近1月","value": yjphJson.FundRank1Month ? yjphJson.FundRank1Month.rank + '/' + yjphJson.FundRank1Month.total_num : ''},
-        {"text":"近3月","value": yjphJson.FundRank3Month ? yjphJson.FundRank3Month.rank + '/' + yjphJson.FundRank3Month.total_num : ''},
-        {"text":"近6月","value": yjphJson.FundRank6Month ? yjphJson.FundRank6Month.rank + '/' + yjphJson.FundRank6Month.total_num : ''},
-        {"text":"近1年","value": yjphJson.FundRank1Year ? yjphJson.FundRank1Year.rank + '/' + yjphJson.FundRank1Year.total_num : ''},
-        {"text":"近2年","value": yjphJson.FundRank2Year ? yjphJson.FundRank2Year.rank + '/' + yjphJson.FundRank2Year.total_num : ''},
-        {"text":"近3年","value": yjphJson.FundRank3Year ? yjphJson.FundRank3Year.rank + '/' + yjphJson.FundRank3Year.total_num : ''},
-        {"text":"近5年","value": yjphJson.FundRank5Year ? yjphJson.FundRank5Year.rank + '/' + yjphJson.FundRank5Year.total_num : ''}
-      ]
+      lsyjArr = res.data.data.fund_performance.data.History
+      yjphArr = res.data.data.fund_rank.data.History
+
+      var lsyjGoodArr = res.data.data.fund_performance.data.RecommendString ? res.data.data.fund_performance.data.RecommendString.split(/<(.+?)>/) : []
 
       this.setData({
         arrayData: res.data.data,
         lsyjData: lsyjArr.slice(0,5),
         yjphData: yjphArr.slice(0,5),
         jqjzData: res.data.data.fund_valuation.data.ValueList.slice(0,5),
-        messageData: res.data.data.fund_related_info_list.data.RelatedInfoList
+        messageData: res.data.data.fund_related_info_list.code == 0 ? res.data.data.fund_related_info_list.data.RelatedInfoList : [],
+        RecommendArr: lsyjGoodArr
       })
   },
 
@@ -172,14 +159,25 @@ Page({
   },
 
   jumpMemberDetail: function () {
-    var params = "FundManagerCode=" + this.data.preData.FundManagerCode
+    var params = "FundManagerCode=" + this.data.arrayData.fund_info.data.FundManagerCode
     wx.navigateTo({
       url: '../memberDetail/memberDetail?' + params
     })
   },
 
-  jumpList: function () {
-    var params = "FundTypeCode=" + this.data.preData.FundTypeCode + "&FundType=" + this.data.preData.FundType + "&FundInvestmentCode=" + this.data.preData.FundInvestmentCode
+  jumpList: function (e) {
+
+//    type = 1 只传行业
+    var type = e.currentTarget.dataset.type
+
+    var params = ''
+    var data = this.data.arrayData.fund_info.data
+    if (type == 1) {
+      params = "FundTypeCode=" + data.FundTypeCode + "&FundType=" + data.FundType
+    } else {
+      params = "FundTypeCode=" + data.FundTypeCode + "&FundType=" + data.FundType + "&FundInvestmentCode=" + data.FundInvestmentCode + "&FundInvestmentType=" + data.FundInvestmentType
+    }
+     
     wx.navigateTo({
       url: '../list/list?' + params
     })
@@ -197,6 +195,15 @@ Page({
     wx.navigateTo({
       url: '../news/news?' + params
     })
+  },
+
+  randFace: function () {
+    var i = Math.floor(Math.random() * 10)
+    var face = '../../resource/image/face/head-thum-mask' + i + '.jpg'
+    this.setData({
+      face:face
+    })
+    PublicUserdefault.setFace(face)
   }
 
 })

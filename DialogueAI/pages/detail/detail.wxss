@@ -35,6 +35,10 @@ page {
     height:60rpx;
 }
 
+.w120 {
+    width:120rpx;
+}
+
 .c-6C8AB6 {
     color: #6C8AB6;
 }
@@ -81,3 +85,10 @@ page {
     border-radius: 8rpx;
 }
 
+.opacity1 {
+  opacity: 1;
+}
+
+.opacity0 {
+  opacity: 0;
+}

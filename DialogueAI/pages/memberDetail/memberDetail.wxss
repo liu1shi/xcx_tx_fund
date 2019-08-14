@@ -19,6 +19,10 @@ page {
     font-family: PingFangSC-Medium;
 }
 
+.ff-db {
+    font-family: DINAlternate-Bold;
+}
+
 .fs32 {
    font-size: 32rpx;
 }

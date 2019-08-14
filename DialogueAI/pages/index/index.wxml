@@ -3,17 +3,18 @@
 
 <view class="pr bc-fff" wx:if="{{authInfo}}">
     <image class="w100 pa baseImg" src="../../resource/image/Combined_Shape.png"></image>
-    <view class="content pa mb30">
-        <view class="mt30 flexCenter">
-            <image mode="aspectFit" src="../../resource/image/dotLeft.png" style="width:60rpx;height:30rpx;"></image>
-            <view class=" fs40 c-fff ml30 mr30">精选基金</view>
-            <image mode="aspectFit" src="../../resource/image/dotRight.png" style="width:60rpx;height:30rpx;"></image>
-        </view>
-        <view class="mb30 pb30 mt10 flexCenter">
-            <image src="../../resource/image/tit.png" style="width:25rpx;height:25rpx;"></image>
-            <text class="fs24 c-fff ws-nm ml10">根据您的风险偏好和投资习惯生成</text>
-        </view>
-        <view class="mb30">
+    <view class="contentBase pa">
+        <view class="mt30 mb30 ml20 mr20">
+            <view class="flexCenter">
+                <image mode="aspectFit" src="../../resource/image/dotLeft.png" style="width:60rpx;height:30rpx;"></image>
+                <view class=" fs40 c-fff ml30 mr30">推荐基金</view>
+                <image mode="aspectFit" src="../../resource/image/dotRight.png" style="width:60rpx;height:30rpx;"></image>
+            </view>
+            <view class="pb30 mt10 flexCenter">
+                <image src="../../resource/image/tit.png" style="width:25rpx;height:25rpx;"></image>
+                <text class="fs24 c-fff ws-nm ml10">根据您的风险偏好和投资习惯推荐</text>
+            </view>
+    
             <view class="cell mt30 flexCenter flexDirectionColumn bc-fff" wx:for="{{arrayData}}" wx:key="*this" data-index="{{index}}" data-item="{{item}}" bindtap="btnClick">
                 <view class="flexCenter flexJustifyAround w100 mt30">
                     <view class="h3 bc-DADADA w25p"></view>
@@ -23,12 +24,12 @@
                 <view class="ff-pr fs34 c-333 m30">{{item.FundName}} ({{item.FundCode}})</view>
                 <view class="flexCenter w100 mb30">
                     <view class="flexCenter flexDirectionColumn w50p">
-                        <view class="ff-db fs40 c-333">{{item.FundUnitNetValue}}</view>
-                        <view class="ff-pr fs26 c-666 mt5">单位净值(元)</view>
+                        <view class="ff-db fs40 c-333">{{WxMethod.floatCut(item.FundUnitNetValue,4,false,false)}}</view>
+                        <view class="ff-pr fs26 c-666 mt10">单位净值(元)</view>
                     </view>
                     <view class="flexCenter flexDirectionColumn w50p">
-                        <view class="ff-db fs40 {{WxMethod.compareZero(item.FundValuationChange)}}">{{WxMethod.floatCut(item.FundValuationChange)}}%</view>
-                        <view class="ff-pr fs26 c-666 mt5">日涨跌幅</view>
+                        <view class="ff-db fs40 {{WxMethod.compareZero(item.FundYearReturnRate)}}">{{WxMethod.floatCut(item.FundYearReturnRate,2,false,true)}}%</view>
+                        <view class="ff-pr fs26 c-666 mt10">近1年收益率</view>
                     </view>
                 </view>
             </view>

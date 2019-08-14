@@ -13,7 +13,6 @@ page {
     left:0;
     top:0;
     right:0;
-    bottom:0;
 }
 
 .wAuto{width:auto;}
@@ -98,16 +97,12 @@ page {
     z-index:5;
 }
 
-.ml28 {
-    margin-left:28rpx;
-}
-
-.mr28 {
-    margin-right:28rpx;
-}
-
 .mt80 {
     margin-top:80rpx;
+}
+
+.mt40 {
+    margin-top:40rpx;
 }
 
 .w25p {
@@ -125,4 +120,5 @@ page {
 .w50p {
     width:50%;
 }
+
 

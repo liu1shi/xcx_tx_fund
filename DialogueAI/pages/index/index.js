@@ -13,16 +13,12 @@ Page({
 
   onLoad: function () {
     // this.getUserInfo()
+
+    this.refresh()
+
   },
 
   onShow: function () {
-
-    var that = this
-    SendReq.kgraphHomepage(function (res) {
-      that.setData({
-        arrayData:res.data.data.ValueList
-      })
-    })
 
     // var that = this;
 
@@ -75,9 +71,24 @@ Page({
 
   },
 
+
+  onPullDownRefresh: function () {
+    this.refresh()
+    wx.stopPullDownRefresh()
+  },
+
+  refresh: function () {
+    var that = this
+    SendReq.kgraphHomepage(function (res) {
+      that.setData({
+        arrayData:res.data.data.ValueList
+      })
+    })
+  },
+
   btnClick: function (e) {
     var item = e.currentTarget.dataset.item
-    var params = "preData=" + JSON.stringify(item)
+    var params = "FundCode=" + item.FundCode + "&Fund300Index=" + item.Fund300Index
     wx.navigateTo({
       url: '../detail/detail?' + params
     })

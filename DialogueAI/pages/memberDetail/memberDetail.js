@@ -4,6 +4,8 @@
 
 var SendReq = require('../../public/network/sendreq.js')
 var PublicMethod = require('../../public/method/publicMethod.js')
+var PublicUserdefault = require('../../public/method/publicUserdefault.js')
+
 
 Page({
 
@@ -16,30 +18,40 @@ Page({
     isResume: false,
     isFund: false,
     isTjManager: false,
-    isTjFunds: false
+    isTjFunds: false,
+    face:''
   },
 
   onLoad: function (options) {
 
-    var that = this
+    this.reqManagers(options.FundManagerCode)
 
-    var params = {
-      "FundManagerCode": options.FundManagerCode
-    }
-
-    SendReq.kgraphFund_managers(params,function (res) {
-      that.setData({
-        arrayData: res.data.data,
-        funds: res.data.data.funds.slice(0,5),
-        tjManager: res.data.data.recommend.data.RecommendFundManagerList.slice(0,5),
-        tjFunds: res.data.data.recommend.data.RecommendFundList.slice(0,5),
-        resume: res.data.data.fund_manager.data.Resume.slice(0,80)
-      })
+    this.setData({
+      face: PublicUserdefault.getFace()
     })
+    
   },
 
   onShow: function () {
 
+  },
+
+  reqManagers:function (FundManagerCode) {
+      var that = this
+
+      var params = {
+        "FundManagerCode": FundManagerCode
+      }
+
+      SendReq.kgraphFund_managers(params,function (res) {
+        that.setData({
+          arrayData: res.data.data,
+          funds: res.data.data.funds.slice(0,5),
+          tjManager: res.data.data.recommend.data.RecommendFundManagerList.slice(0,5),
+          tjFunds: res.data.data.recommend.data.RecommendFundList.slice(0,5),
+          resume: res.data.data.fund_manager.data.Resume.slice(0,80)
+        })
+      })
   },
 
   resumeMore:function () {
@@ -115,10 +127,10 @@ Page({
     }
 
     this.setData({
-      tjFunds: !this.data.tjFunds
+      isTjFunds: !this.data.isTjFunds
     })
 
-    if (this.data.tjFunds) {
+    if (this.data.isTjFunds) {
       this.setData({
         tjFunds: this.data.arrayData.recommend.data.RecommendFundList
       })
@@ -131,6 +143,42 @@ Page({
 
   btnClick: function (e) {
     console.log('dataset : ' + e.currentTarget.dataset.index + e.currentTarget.dataset.item.title)
+  },
+
+  showTit: function () {
+    PublicMethod.alert('温馨提示', '根据以下基金经理的五项指标：从业时间、盈利能力、基金管理规模、业绩排名的波动性、个人持仓占比，综合计算得出评分。', false, null, null, '知道了', '#0059ED')
+  },
+
+  clickDetail1: function(e) {
+
+    var item = e.currentTarget.dataset.item
+    var params = "FundCode=" + item.data.FundCode + "&Fund300Index=" + item.data.Fund300Index
+
+    wx.navigateTo({
+      url: '../detail/detail?' + params
+    })
+  },
+
+  clickDetail2: function(e) {
+
+    var item = e.currentTarget.dataset.item
+    var params = "FundCode=" + item.FundCode + "&Fund300Index=" + item.Fund300Index
+
+    wx.navigateTo({
+      url: '../detail/detail?' + params
+    })
+  },
+
+  jumpMemberDetail: function (e) {
+
+    var item = e.currentTarget.dataset.item
+
+    var params = "FundManagerCode=" + item.ManagerCode
+
+    wx.navigateTo({
+      url: '../memberDetail/memberDetail?' + params
+    })
+    
   }
 
 })

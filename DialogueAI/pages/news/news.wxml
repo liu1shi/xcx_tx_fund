@@ -12,6 +12,7 @@
     </view>
 </view>
 
+<!-- 基金 -->
 <view class="pf lrtb0 w100 h100" hidden="{{type != 1}}">
   <view class="pa lrtb0 model"></view>
   <view class="pa w100 h100" bindtap="hideMod">
@@ -20,7 +21,7 @@
             <view class="m30">{{entityResData.FundName + ' (' + entityResData.FundCode + ')'}}</view>
             <view class="ml30 mr30 flexCenter flexJustifyBetween">
                 <view class="flexCenter flexDirectionColumn">
-                    <view class="ffdb fs36 {{WxMethod.compareZero(entityResData.FundValuationChange)}}">{{WxMethod.floatCut(entityResData.FundValuationChange)}}%</view>
+                    <view class="ffdb fs36 {{WxMethod.compareZero(entityResData.FundValuationChange)}}">{{WxMethod.floatCut(entityResData.FundValuationChange,2,false,true)}}%</view>
                     <view class="ffpr fs24 c-666">日涨跌幅</view>
                 </view>
                 <view class="flexCenter flexDirectionColumn">
@@ -28,34 +29,35 @@
                     <view class="ffpr fs24 c-666">单位净值({{entityResData.FundUnitNetValueDate}})</view>
                 </view>
                 <view class="flexCenter flexDirectionColumn">
-                    <view class="ffdb fs36 {{WxMethod.compareZero(entityResData.FundYearReturnRate)}}">{{WxMethod.floatCut(entityResData.FundYearReturnRate)}}%</view>
-                    <view class="ffpr fs24 c-666">年收益率</view>
+                    <view class="ffdb fs36 {{WxMethod.compareZero(entityResData.FundYearReturnRate)}}">{{WxMethod.floatCut(entityResData.FundYearReturnRate,2,false,true)}}%</view>
+                    <view class="ffpr fs24 c-666">近1年收益率</view>
                 </view>
             </view>
             <view class="m30">
                 <text class="ffpr fs24 border3 pt10 pb10 pl30 pr30 c-666"  hidden="{{!entityResData.FundInvestmentType}}">{{entityResData.FundInvestmentType}}</text>
-                <text class="ffpr fs24 border3 pt10 pb10 pl30 pr30 c-666 ml30" hidden="{{!entityResData.FundType}}">{{entityResData.FundType}}</text>
+                <text class="ffpr fs24 border3 pt10 pb10 pl30 pr30 c-666 ml30" hidden="{{!entityResData.FundType}}">{{entityResData.FundType}}行业</text>
             </view>
             <view class="h3 bc-DADADA"></view>
-            <view class="ffpr fs26 c-0059ED flexCenter mb30 mt30" data-type="{{type}}" bindtap="checkMore">查看更多
+            <view class="ffpr fs26 c-0059ED flexCenter pb30 pt30" bindtap="jumpDetail">查看更多
             </view>
         </view>
     </view>
   </view>
 </view>
 
+<!-- 基金经理 -->
 <view class="pf lrtb0 w100 h100" hidden="{{type != 2}}">
   <view class="pa lrtb0 model"></view>
   <view class="pa w100 h100" bindtap="hideMod">
     <view class="w100 h100 flexCenter">
         <view class="modContent bc-fff">
             <view class="flexCenter flexJustifyStart">
-                <image class="m30" src="../../resource/image/Oval.png" style="width:100rpx;height:100rpx;border-radius:50rpx;"></image>
+                <image class="m30" src="{{face}}" style="width:100rpx;height:100rpx;border-radius:50rpx;"></image>
                 <view class="flexCenter flexDirectionColumn flexAlignStart">
                     <view class="ffpm fs36 c-333">{{entityResData.Name}}</view>
                     <view class="flexCenter">
                         <text class="c-666 ffpr fs26">综合评分(满分10分)</text>
-                        <text class="ffpm fs32 c-F93A3A ml20">{{WxMethod.placeCheck(entityResData.ManagerScore)}}分</text>
+                        <text class="ffpm fs32 c-F93A3A ml20">{{WxMethod.floatCut(entityResData.ManagerScore,1,false,false)}}分</text>
                     </view>
                 </view>
             </view>
@@ -71,38 +73,40 @@
             </view>
             <view class="c-666 ff-pr fs26 ml30 mr30 mt20 mb20">{{Resume}}</view>
             <view class="h3 bc-DADADA"></view>
-            <view class="ffpr fs26 c-0059ED flexCenter mb30 mt30" data-type="{{type}}" bindtap="checkMore">查看更多
+            <view class="ffpr fs26 c-0059ED flexCenter pb30 pt30" bindtap="jumpMemberDetail">查看更多
             </view>
         </view>
     </view>
   </view>
 </view>
 
+<!-- 行业 -->
 <view class="pf lrtb0 w100 h100" hidden="{{type != 3}}">
   <view class="pa lrtb0 model"></view>
   <view class="pa w100 h100" bindtap="hideMod">
     <view class="w100 h100 flexCenter">
         <view class="modContent bc-fff">
-            <view class="m30 ffpm fs30 c-333">{{EntityName}}相关行业基金列表</view>
+            <view class="m30 ffpm fs30 c-333">{{EntityName}}行业相关基金列表</view>
             <view class="flexCenter flexJustifyBetween bc-F6F6F6">
                 <view class="ffpr fs28 c-999 mt20 mb20 ml30">基金名称</view>
-                <view class="ffpr fs28 c-999 mr30">年收益率</view>
+                <view class="ffpr fs28 c-999 mr30">近1年收益率</view>
             </view>
             <view class=""  wx:for="{{entityResData.FundList}}" wx:key="*this">
                 <view class="mt20 mb20 ml30 mr30 flexCenter flexJustifyBetween">
                     <view class="ffpr fs26 c-333 mr30">{{item.FundName + ' (' + item.FundCode + ')'}}</view>
-                    <view class="ffdb fs28 ml30 {{WxMethod.compareZero(item.FundReturnRate)}}">{{WxMethod.floatCut(item.FundReturnRate)}}%</view>
+                    <view class="ffdb fs28 ml30 {{WxMethod.compareZero(item.FundReturnRate)}}">{{WxMethod.floatCut(item.FundReturnRate,2,false,true)}}%</view>
                 </view>
                 <view class="h3 bc-DADADA ml20"></view>
             </view>
-            <view class="ffpr fs26 c-0059ED flexCenter mb30 mt30" data-type="{{type}}" bindtap="checkMore">查看更多
+            <view class="ffpr fs26 c-0059ED flexCenter pb30 pt30" bindtap="jumpList">查看更多
             </view>
         </view>
     </view>
   </view>
 </view>
 
-<view class="pf lrtb0 w100 h100" hidden="{{type != 4}}">
+<!-- 投资类型 -->
+<view class="pf lrtb0 w100 h100" hidden="{{(type != 4)}}">
   <view class="pa lrtb0 model"></view>
   <view class="pa w100 h100" bindtap="hideMod">
     <view class="w100 h100 flexCenter">
@@ -110,10 +114,10 @@
             <view class="m30 ffpm fs32 c-333">{{EntityName}}</view>
             <view class="ffpr fs28 c-666 ml30 mr30 mb30">{{entityResData.Introduce}}</view>
             <view class="h3 bc-DADADA"></view>
-            <view class="m30 ffpm fs30 c-333">相关{{EntityName}}列表</view>
+            <view class="m30 ffpm fs30 c-333">相关{{EntityName}}基金列表</view>
             <view class="flexCenter flexJustifyBetween bc-F6F6F6">
                 <view class="ffpr fs28 c-999 mt20 mb20 ml30">基金名称</view>
-                <view class="ffpr fs28 c-999 mr30">年收益率</view>
+                <view class="ffpr fs28 c-999 mr30">近1年收益率</view>
             </view>
             <view class=""  wx:for="{{entityResData.FundList}}" wx:key="*this">
                 <view class="flexCenter flexJustifyBetween">
@@ -122,17 +126,16 @@
                             {{item.FundName + ' (' + item.FundCode + ')'}}
                         </view>
                     </view>
-                    <view class="ffdb fs28 ml30 mr30 {{WxMethod.compareZero(item.FundReturnRate)}}">{{WxMethod.floatCut(item.FundReturnRate)}}%</view>
+                    <view class="ffdb fs28 ml30 mr30 {{WxMethod.compareZero(item.FundReturnRate)}}">{{WxMethod.floatCut(item.FundReturnRate,2,false,true)}}%</view>
                 </view>
                 <view class="h3 bc-DADADA ml20"></view>
-            </view>
-            <view class="ffpr fs26 c-0059ED flexCenter mb30 mt30" data-type="{{type}}" bindtap="checkMore">查看更多
             </view>
         </view>
     </view>
   </view>
 </view>
 
+<!-- 常识 -->
 <view class="pf lrtb0 w100 h100" hidden="{{type != 5}}">
   <view class="pa lrtb0 model"></view>
   <view class="pa w100 h100" bindtap="hideMod">

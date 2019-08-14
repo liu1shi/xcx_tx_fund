@@ -4,13 +4,13 @@
 <view class="">
     <view class="bc-fff border">
         <view class="flexCenter flexJustifyStart h140">
-            <image class="ml30" src="../../resource/image/Oval.png" style="width:100rpx;height:100rpx;border-radius:50rpx;"></image>
+            <image class="ml30" src="{{face}}" style="width:100rpx;height:100rpx;border-radius:50rpx;"></image>
             <view class="ml30 flexCenter flexDirectionColumn flexAlignStart">
                 <view class="ff-pm fs36 c-333">{{arrayData.fund_manager.data.Name}}</view>
                 <view class="flexCenter">
                     <text class="c-666 ff-pr fs26">综合评分(满分10分)</text>
-                    <image class="ml30" src="../../resource/image/help.png" style="width:32rpx;height:32rpx;"></image>
-                    <text class="ff-pm fs32 c-F93A3A ml20">{{WxMethod.placeCheck(arrayData.fund_manager.data.ManagerScore)}}分</text>
+                    <text class="ff-pm fs32 c-F93A3A ml30">{{WxMethod.floatCut(arrayData.fund_manager.data.ManagerScore,1,false,false)}}分</text>
+                    <image class="ml20" mode="aspectFit" src="../../resource/image/help.png" style="width:32rpx;height:32rpx;"  bindtap="showTit"></image>
                 </view>
             </view>
         </view>
@@ -24,14 +24,14 @@
             <view class="c-333 ff-pr fs28 w33p flexCenter">{{arrayData.fund_manager.data.BeginWorkDate}}</view>
             <view class="c-333 ff-pr fs28 w33p flexCenter">{{arrayData.fund_manager.data.FundNum}}只</view>
         </view>
-        <view class="h3 bc-DADADA mt20 mb20"></view>
+        <view class="h3 bc-DADADA mt20 mb30"></view>
         <view class="ml30 mr30 mb30" hidden="{{!arrayData.fund_manager.data.ManagerRecommendString}}">
             <image src="../../resource/image/good.png" style="width:25rpx;height:25rpx;"></image>
-            <text class="fs24 c-666 ws-nm ml10">经过分析，我们发现该基金经理<text class="c-333 fs24">{{arrayData.fund_manager.data.ManagerRecommendString}}</text></text>
+            <text class="fs24 c-666 ws-nm ml10">经过分析，我们发现该基金经理<text class="c-333 ff-db fs26">{{arrayData.fund_manager.data.ManagerRecommendString}}</text></text>
         </view>
         <view class="c-666 ff-pr fs26 ml30 mr30">{{resume}}</view>
         <view class="ff-pr fs26 c-6C8AB6 flexCenter mb30 mt30" bindtap="resumeMore">{{isResume ? '收起' : '展开更多'}}
-        <image class="ml10" src="{{isResume ? '../../resource/image/arrow-up.png' : '../../resource/image/arrow-down.png'}}" style="width:20rpx;height:20rpx;"></image>
+          <image class="ml10" src="{{isResume ? '../../resource/image/arrow-up.png' : '../../resource/image/arrow-down.png'}}" style="width:20rpx;height:20rpx;"></image>
         </view>
     </view>
     <view class="mt20 bc-fff border">
@@ -39,54 +39,54 @@
         <view class="h3 bc-DADADA"></view>
         <view class="flexCenter flexJustifyBetween m30">
             <view class="c-666 ff-pr fs30">从业以来年均回报率</view>
-            <view class="ff-pr fs30 {{WxMethod.compareZero(arrayData.fund_manager.data.AverageAnnualReturn)}}">{{WxMethod.floatCut(arrayData.fund_manager.data.AverageAnnualReturn,2)}}%</view>
+            <view class="ff-pr fs30 {{WxMethod.compareZero(arrayData.fund_manager.data.AverageAnnualReturn)}}">{{WxMethod.floatCut(arrayData.fund_manager.data.AverageAnnualReturn,2,false,true)}}%</view>
         </view>
         <view class="h3 bc-DADADA ml20"></view>
         <view class="flexCenter flexJustifyBetween m30">
             <view class="c-666 ff-pr fs30">从业以来最大回撤率</view>
-            <view class="ff-pr fs30 {{WxMethod.compareZero(arrayData.fund_manager.data.MaxFundWithdrawal)}}">{{WxMethod.floatCut(arrayData.fund_manager.data.MaxFundWithdrawal,2)}}%</view>
+            <view class="ff-pr fs30 {{WxMethod.compareZero(arrayData.fund_manager.data.MaxFundWithdrawal)}}">{{WxMethod.floatCut(arrayData.fund_manager.data.MaxFundWithdrawal,2,false,true)}}%</view>
         </view>
         <view class="h3 bc-DADADA ml20"></view>
         <view class="flexCenter flexJustifyBetween m30">
             <view class="c-666 ff-pr fs30">近1年年均回报率</view>
-            <view class="ff-pr fs30 {{WxMethod.compareZero(arrayData.fund_manager.data.Return1Year)}}">{{WxMethod.floatCut(WxMethod.placeCheck(arrayData.fund_manager.data.Return1Year),2)}}%</view>
+            <view class="ff-pr fs30 {{WxMethod.compareZero(arrayData.fund_manager.data.Return1Year)}}">{{WxMethod.floatCut(arrayData.fund_manager.data.Return1Year,2,false,true)}}%</view>
         </view>
         <view class="h3 bc-DADADA ml20"></view>
         <view class="flexCenter flexJustifyBetween m30" hidden="{{!arrayData.fund_manager.data.Return3Year}}">
             <view class="c-666 ff-pr fs30">近3年年均回报率</view>
-            <view class="ff-pr fs30 {{WxMethod.compareZero(arrayData.fund_manager.data.Return3Year)}}">{{WxMethod.floatCut(WxMethod.placeCheck(arrayData.fund_manager.data.Return3Year),2)}}%</view>
+            <view class="ff-pr fs30 {{WxMethod.compareZero(arrayData.fund_manager.data.Return3Year)}}">{{WxMethod.floatCut(arrayData.fund_manager.data.Return3Year,2,false,true)}}%</view>
         </view>
         <view class="h3 bc-DADADA ml20"></view>
         <view class="flexCenter flexJustifyBetween m30" hidden="{{!arrayData.fund_manager.data.Return5Year}}">
             <view class="c-666 ff-pr fs30">近5年年均回报率</view>
-            <view class="ff-pr fs30 {{WxMethod.compareZero(arrayData.fund_manager.data.Return5Year)}}">{{WxMethod.floatCut(WxMethod.placeCheck(arrayData.fund_manager.data.Return5Year),2)}}%</view>
+            <view class="ff-pr fs30 {{WxMethod.compareZero(arrayData.fund_manager.data.Return5Year)}}">{{WxMethod.floatCut(arrayData.fund_manager.data.Return5Year,2,false,true)}}%</view>
         </view>
     </view>
     <view class="border mt20 bc-fff">
         <view class="fs36 c-333 ff-pr m30">管理基金列表</view>
         <view class="h3 bc-DADADA ml20"></view>
         <view class="flexCenter m30">
-            <view class="fs26 c-666 flexCenter w50p">基金名称</view>
+            <view class="fs26 c-666 flexCenter w50p flexDirectionColumn flexAlignStart">基金名称</view>
             <view class="fs26 c-666 flexCenter w25p">单位净值(元)</view>
-            <view class="fs26 c-666 flexCenter w25p">日涨跌幅</view>
+            <view class="fs26 c-666 flexCenter w25p">近1年收益率</view>
         </view>
         <view class="h3 bc-DADADA"></view>
         <view wx:for="{{funds}}" wx:key="*this">
             <view class="flexCenter m30">
-                <view class="fs28 c-0059ED flexCenter w50p">{{item.data.FundName}}</view>
+                <view class="fs28 c-0059ED flexCenter w50p flexDirectionColumn flexAlignStart"  data-item="{{item}}" bindtap="clickDetail1">{{item.data.FundName}}</view>
                 <view class="fs32 c-333 flexCenter w25p">{{item.data.FundUnitNetValue}}</view>
                 <view class="fs32 flexCenter w25p">
-                <text class="to-e ws-nr {{WxMethod.compareZero(item.data.FundValuationChange)}}">{{WxMethod.floatCut(item.data.FundValuationChange,2)}}%</text></view>
+                <text class="to-e ws-nr {{WxMethod.compareZero(item.data.FundYearReturnRate)}}">{{WxMethod.floatCut(item.data.FundYearReturnRate,2,false,true)}}%</text></view>
             </view>
             <view class="h3 bc-DADADA ml20"></view>
         </view>
-        <view class="ff-pr fs26 c-6C8AB6 flexCenter mb30 mt30" bindtap="fundMore" hidden="{{funds.length <=5 }}">{{isFund ? '收起' : '展开更多'}}<image class="ml10" src="{{isFund ? '../../resource/image/arrow-up.png' : '../../resource/image/arrow-down.png'}}" style="width:20rpx;height:20rpx;"></image></view>
+        <view class="ff-pr fs26 c-6C8AB6 flexCenter mb30 mt30" bindtap="fundMore" hidden="{{arrayData.funds.length <=5 }}">{{isFund ? '收起' : '展开更多'}}<image class="ml10" src="{{isFund ? '../../resource/image/arrow-up.png' : '../../resource/image/arrow-down.png'}}" style="width:20rpx;height:20rpx;"></image></view>
     </view>
     <view class="border mt20 bc-fff">
         <view class="fs36 c-333 ff-pr m30">你还想看</view>
         <view class="ml30 mr30" hidden="{{!arrayData.recommend.data.RecommendFundManagerInfo}}">
             <image src="../../resource/image/good.png" style="width:25rpx;height:25rpx;"></image>
-            <text class="fs24 c-666 ml10 ws-nm">经过分析，我们发现以下基金经理<text class="fs24 c-333">{{arrayData.recommend.data.RecommendFundManagerInfo}}</text></text>
+            <text class="fs24 c-666 ml10 ws-nm">经过分析，我们发现以下基金经理<text class="ff-db fs26 c-333">{{arrayData.recommend.data.RecommendFundManagerInfo}}</text></text>
         </view>
         <view class="bshadow m30 border">
             <view class="flexCenter mt30 mb30">
@@ -97,35 +97,35 @@
             <view class="h3 bc-DADADA"></view>
             <view wx:for="{{tjManager}}" wx:key="*this">
                 <view class="flexCenter mt30 mb30">
-                    <view class="fs28 c-0059ED flexCenter w33p">{{item.ManagerName}}</view>
-                    <view class="fs32 flexCenter w33p {{WxMethod.compareZero(item.AverageAnnualReturn)}}">{{WxMethod.floatCut(item.AverageAnnualReturn,2)}}%</view>
-                    <view class="fs32 c-F93A3A flexCenter w33p">{{item.FundNum}}</view>
+                    <view class="fs28 c-0059ED flexCenter w33p" data-item="{{item}}" bindtap="jumpMemberDetail">{{item.ManagerName}}</view>
+                    <view class="fs32 flexCenter w33p {{WxMethod.compareZero(item.AverageAnnualReturn)}}">{{WxMethod.floatCut(item.AverageAnnualReturn,2,false,true)}}%</view>
+                    <view class="fs32 c-333 flexCenter w33p">{{item.FundNum}}</view>
                 </view>
                 <view class="h3 bc-DADADA ml20"></view>
             </view>
-            <view class="ff-pr fs26 c-6C8AB6 flexCenter mb30 mt30" bindtap="tjManagerMore" hidden="{{tjManager.length <=5 }}">{{isTjManager ? '收起' : '展开更多'}}<image class="ml10" src="{{isTjManager ? '../../resource/image/arrow-up.png' : '../../resource/image/arrow-down.png'}}" style="width:20rpx;height:20rpx;"></image></view>
+            <view class="ff-pr fs26 c-6C8AB6 flexCenter mb30 mt30" bindtap="tjManagerMore" hidden="{{arrayData.recommend.data.RecommendFundManagerList.length <=5 }}">{{isTjManager ? '收起' : '展开更多'}}<image class="ml10" src="{{isTjManager ? '../../resource/image/arrow-up.png' : '../../resource/image/arrow-down.png'}}" style="width:20rpx;height:20rpx;"></image></view>
         </view>
 
         <view class="m30" hidden="{{!arrayData.recommend.data.RecommendFundInfo}}">
             <image src="../../resource/image/good.png" style="width:25rpx;height:25rpx;"></image>
-            <text class="fs24 c-666 ws-nm ml10">经过分析，我们发现以下基金<text class="c-333 fs24">{{arrayData.recommend.data.RecommendFundInfo}}</text></text>
+            <text class="fs24 c-666 ws-nm ml10">经过分析，我们发现以下基金<text class="c-333 ff-db fs26">{{arrayData.recommend.data.RecommendFundInfo}}</text></text>
         </view>
         <view class="bshadow m30 border">
             <view class="flexCenter mb30 mt30">
-                <view class="fs26 c-666 flexCenter w50p">基金名称</view>
+                <view class="fs26 c-666 flexCenter flexDirectionColumn flexAlignStart w50p ml10 mr10">基金名称</view>
                 <view class="fs26 c-666 flexCenter w25p">单位净值</view>
-                <view class="fs26 c-666 flexCenter w25p">年收益率</view>
+                <view class="fs26 c-666 flexCenter w25p">近1年收益率</view>
             </view>
             <view class="h3 bc-DADADA"></view>
             <view wx:for="{{tjFunds}}" wx:key="*this">
                 <view class="flexCenter mt30 mb30">
-                    <view class="fs28 c-0059ED flexCenter w50p">{{item.FundName}}</view>
+                    <view class="fs28 c-0059ED flexCenter flexDirectionColumn flexAlignStart w50p ml10 mr10"  data-item="{{item}}" bindtap="clickDetail2">{{item.FundName}}</view>
                     <view class="fs32 c-333 flexCenter w25p">{{item.FundUnitNetValue}}</view>
-                    <view class="fs32 flexCenter w25p {{WxMethod.compareZero(item.FundValuationChange)}}">{{WxMethod.floatCut(item.FundValuationChange,2)}}%</view>
+                    <view class="fs32 flexCenter w25p {{WxMethod.compareZero(item.FundValuationChange)}}">{{WxMethod.floatCut(item.FundValuationChange,2,false,true)}}%</view>
                 </view>
                 <view class="h3 bc-DADADA ml20"></view>
             </view>
-            <view class="ff-pr fs26 c-6C8AB6 flexCenter mb30 mt30" bindtap="tjFundsMore" hidden="{{tjFunds.length <=5 }}">{{isTjFunds ? '收起' : '展开更多'}}<image class="ml10" src="{{isTjFunds ? '../../resource/image/arrow-up.png' : '../../resource/image/arrow-down.png'}}" style="width:20rpx;height:20rpx;"></image></view>
+            <view class="ff-pr fs26 c-6C8AB6 flexCenter mb30 mt30" bindtap="tjFundsMore" hidden="{{arrayData.recommend.data.RecommendFundList.length <=5 }}">{{isTjFunds ? '收起' : '展开更多'}}<image class="ml10" src="{{isTjFunds ? '../../resource/image/arrow-up.png' : '../../resource/image/arrow-down.png'}}" style="width:20rpx;height:20rpx;"></image></view>
         </view>
     </view>
 </view>

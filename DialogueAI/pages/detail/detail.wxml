@@ -1,48 +1,51 @@
 
 <wxs src="../../public/method/wxMethod.wxs" module="WxMethod" />
 
-<view>
+<view class="pb30">
     <view class="border bc-fff">
-        <view class="ff-pm fs34 c-333 m30">{{preData.FundName}} ({{preData.FundCode}})</view>
-        <view class="h3 bc-999 m20"></view>
+        <view class="ff-pm fs34 c-333 m30">{{arrayData.fund_info.data.FundName}} ({{arrayData.fund_info.data.FundCode}})</view>
+        <view class="h3 bc-DADADA ml20"></view>
         <view class="flexCenter flexJustifyBetween m30">
             <view class="flexCenter flexDirectionColumn flexAlignStart">
-                <view class="fs40 ff-db {{WxMethod.compareZero(preData.FundValuationChange)}}">{{WxMethod.floatCut(preData.FundValuationChange,2)}}%</view>
-                <view class="fs26 c-666">日涨跌幅</view>
+                <view class="fs40 ff-db {{WxMethod.compareZero(arrayData.fund_info.data.FundValuationChange)}}">{{WxMethod.floatCut(arrayData.fund_info.data.FundValuationChange,2,false,true)}}%</view>
+                <view class="fs26 c-666 mt10">日涨跌幅</view>
             </view>
             <view class="flexCenter flexDirectionColumn">
-                <view class="fs40 ff-db">{{preData.FundUnitNetValue}}</view>
-                <view class="fs26 c-666">单位净值({{preData.FundUnitNetValueDate}})</view>
+                <view class="fs40 ff-db">{{arrayData.fund_info.data.FundUnitNetValue}}</view>
+                <view class="fs26 c-666 mt10">单位净值({{WxMethod.floatCut(arrayData.fund_info.data.FundUnitNetValueDate,4,false,false)}})</view>
             </view>
             <view class="flexCenter flexDirectionColumn flexAlignEnd">
-                <view class="fs40 ff-db {{WxMethod.compareZero(preData.FundYearReturnRate)}}">{{WxMethod.floatCut(preData.FundYearReturnRate)}}%</view>
-                <view class="fs26 c-666">年收益率</view>
+                <view class="fs40 ff-db {{WxMethod.compareZero(arrayData.fund_info.data.FundYearReturnRate)}}">{{WxMethod.floatCut(arrayData.fund_info.data.FundYearReturnRate,2,false,true)}}%</view>
+                <view class="fs26 c-666 mt10">近1年收益率</view>
             </view>
         </view>
-        <view class="flexCenter flexJustifyBetween">
-            <view class="m30">
-                <text class="ff-pr fs24 border3 pt10 pb10 pl30 pr30 c-666"  hidden="{{!preData.FundInvestmentType}}">{{preData.FundInvestmentType}}</text>
-                <text class="ff-pr fs24 border3 pt10 pb10 pl30 pr30 c-666 ml30" hidden="{{!preData.FundType}}">{{preData.FundType}}</text>
+        <view class="flexCenter flexJustifyBetween ml30 mr30">
+            <view class="mt30 mb30">
+                <text class="ff-pr fs24 border3 pt10 pb10 pl30 pr30 c-666"  hidden="{{!arrayData.fund_info.data.FundInvestmentType}}">{{arrayData.fund_info.data.FundInvestmentType}}</text>
+                <text class="ff-pr fs24 border3 pt10 pb10 pl30 pr30 c-666 ml30" hidden="{{!arrayData.fund_info.data.FundTypeCode}}">{{arrayData.fund_info.data.FundType}}行业</text>
             </view>
-            <view class="flexCenter" bindtap="jumpList" hidden="{{preData.Fund300Index != 0}}">
+            <view class="flexCenter" data-type="1" bindtap="jumpList" hidden="{{!arrayData.fund_info.data.FundTypeCode}}">
                 <text class="ff-pr fs26 c-0059ED">同行业基金排行</text>
-                <image class="ml10 mr30" src="../../resource/image/arrow-right.png" style="width:25rpx;height:25rpx;"></image>
+                <image class="ml10" src="../../resource/image/arrow-right.png" style="width:25rpx;height:25rpx;"></image>
             </view>
         </view>
     </view>
-    <view class="border mt20 bc-fff" hidden="{{preData.Fund300Index == 0}}">
-        <view class="flexCenter flexJustifyBetween">
-            <view class="ff-pr fs36 c-333 m30">跟踪指数</view>
+    <view class="border mt20 bc-fff" hidden="{{arrayData.fund_info.data.Fund300Index == 0}}">
+        <view class="flexCenter flexJustifyBetween ml30 mr30">
+            <view class="ff-pr fs36 c-333 mt30 mb30">跟踪指数</view>
             <view class="flexCenter" bindtap="jumpIndexList">
                 <text class="ff-pr fs26 c-0059ED">其它追踪此指数基金排行</text>
-                <image class="ml10 mr30" src="../../resource/image/arrow-right.png" style="width:25rpx;height:25rpx;"></image>
+                <image class="ml10" src="../../resource/image/arrow-right.png" style="width:25rpx;height:25rpx;"></image>
             </view>
         </view>
         <view class="h3 bc-DADADA"></view>
         <view class="ff-pr fs28 c-333 mt20 ml30">沪深300指数</view>
         <view class="ws-nm ff-pr fs24 c-333 ml30 mr30 mb20 mt20">沪深300指数是由上海和深圳证券市场中选取300只A股作为样本，覆盖了沪深市场六成左右的市值，具有良好的市场代表性</view>
         <view class="h3 bc-DADADA ml20"></view>
-        <view class="ff-pr fs28 c-333 mt20 ml30 mr30">近一年跟踪误差率0.12%</view>
+        <view class="ff-pr fs28 mt20 ml30 mr30 c-333">
+            近一年跟踪误差率
+            <text class="{{WxMethod.compareZero(arrayData.fund_info.data.ErrorRate)}}">{{WxMethod.floatCut(arrayData.fund_info.data.ErrorRate,4,false,false)}}%</text>
+        </view>
         <view class="ws-nm ff-pr fs24 c-333 ml30 mr30 mt20 mb30">跟踪误差的值越小，更能获取与沪深指数300一致的收益</view>
     </view>
     <view class="border mt20 bc-fff">
@@ -54,81 +57,92 @@
                 <text class="ff-pr fs34 mt30 mb30 {{isLsyj ? 'c-333' : 'c-0059ED'}}">近期净值</text>
             </view>
         </view>
-        <view class="m30" hidden="{{!isLsyj || !arrayData.fund_performance.data.RecommendString}}">
+        <view class="m30" hidden="{{(!isLsyj || !arrayData.fund_performance.data.RecommendString)}}">
             <image src="../../resource/image/good.png" style="width:25rpx;height:25rpx;"></image>
-            <text class="fs24 c-666 ws-nm ml10">经过分析，我们发现该基金<text class="c-333 fs24">{{arrayData.fund_performance.data.RecommendString}}</text></text>
+            <text class="fs24 c-666 ws-nm ml10">经过分析，我们发现该基金</text>
+            <text class="ff-db fs26 {{index == 1 ? 'c-0059ED' : 'c-333'}}" wx:for="{{RecommendArr}}" wx:key="*this" bindtap="{{index == 1 ? 'jumpList' : ''}}">{{item}}</text>
         </view>
         <view class="flexCenter bc-F6F6F6">
             <view class="c-999 ff-pr fs28 w50p flexCenter m20">{{isLsyj ? '时间区间' : '时间'}}</view>
-            <view class="c-999 ff-pr fs28 w50p flexCenter m20">{{isLsyj ? '涨跌幅' : '单位净值(元)'}}</view>
+            <view class="c-999 ff-pr fs28 w50p flexCenter m20">{{isLsyj ? '收益率' : '单位净值(元)'}}</view>
         </view>
-        <view wx:for="{{isLsyj ? lsyjData : jqjzData}}" wx:key="*this" hidden="{{isLsyj ? !item.value : !item.Value}}">
+        <view wx:for="{{isLsyj ? lsyjData : jqjzData}}" wx:key="*this">
             <view class="flexCenter mt20 mb20">
-                <view class="ff-pr fs32 c-333 flexCenter w50p">{{isLsyj ? item.text : item.ValuationDate}}</view>
-                <view class="ff-db fs32 {{isLsyj ? WxMethod.compareZero(item.value) : 'c-333'}} flexCenter w50p">{{isLsyj ? WxMethod.floatCut(item.value) + '%' : item.Value}}</view>
+                <view class="ff-pr fs32 c-333 flexCenter w50p">{{isLsyj ? item.Tag : item.ValuationDate}}</view>
+                <view class="ff-db fs32 {{isLsyj ? WxMethod.compareZero(item.Val) : 'c-333'}} flexCenter w50p">{{isLsyj ? WxMethod.floatCut(item.Val,2,false,true) + '%' : WxMethod.floatCut(item.Value,4,false,false)}}</view>
             </view>
             <view class="h3 bc-DADADA ml20"></view>
         </view>
-        <view class="ff-pr fs26 c-6C8AB6 flexCenter mb30 mt30" bindtap="lsyjMore">{{isLsyj ? (isLsyjMore ? '收起' : '展开更多') : (isJqjzMore ? '收起' : '展开更多')}}<image class="ml10" src="{{isLsyj ? (isLsyjMore ? '../../resource/image/arrow-up.png' : '../../resource/image/arrow-down.png') : (isJqjzMore ? '../../resource/image/arrow-up.png' : '../../resource/image/arrow-down.png')}}" style="width:20rpx;height:20rpx;"></image></view>
+        <view class="ff-pr fs26 c-6C8AB6 flexCenter mb30 mt30" bindtap="lsyjMore" hidden="{{isLsyj ? arrayData.fund_performance.data.History.length <= 5 : arrayData.fund_valuation.data.ValueList.length <=5 }}">
+            {{isLsyj ? (isLsyjMore ? '收起' : '展开更多') : (isJqjzMore ? '收起' : '展开更多')}}
+            <image class="ml10" src="{{isLsyj ? (isLsyjMore ? '../../resource/image/arrow-up.png' : '../../resource/image/arrow-down.png') : (isJqjzMore ? '../../resource/image/arrow-up.png' : '../../resource/image/arrow-down.png')}}" style="width:20rpx;height:20rpx;"></image>
+        </view>
     </view>
-    <view class="border mt20 bc-fff">
-        <view class="ff-pr fs34 c-333 m30">业绩排行</view>
+    <view class="border mt20 bc-fff" hidden="{{!yjphData.length}}">
+        <view class="ff-pr fs36 c-333 m30">业绩排行</view>
         <view class="m30" hidden="{{!arrayData.fund_rank.data.RecommendString}}">
             <image src="../../resource/image/good.png" style="width:25rpx;height:25rpx;"></image>
-            <text class="fs24 c-666 ws-nm ml10">经过分析，我们发现该基金<text class="c-333 fs24">{{arrayData.fund_rank.data.RecommendString}}</text></text>
+            <text class="fs24 c-666 ws-nm ml10">经过分析，我们发现该基金<text class="c-333 ff-db fs26">{{arrayData.fund_rank.data.RecommendString}}</text></text>
         </view>
         <view class="flexCenter bc-F6F6F6">
             <view class="c-999 ff-pr fs28 w50p flexCenter m20">时间区间</view>
             <view class="c-999 ff-pr fs28 w50p flexCenter m20" bindtap="helpClick">
-                同类排名
-                <image class="ml10" src="../../resource/image/help.png" style="width:25rpx;height:25rpx;"></image>
+                <view class="w120"> 同类排名 </view>
+                <image class="ml30" mode="aspectFit" src="../../resource/image/help.png" style="width:25rpx;height:25rpx;"></image>
             </view>
         </view>
-        <view wx:for="{{yjphData}}" wx:key="*this" hidden="{{!item.value}}">
-            <view class="flexCenter mt20 mb20">
-                <view class="ff-pr fs32 c-333 flexCenter w50p">{{item.text}}</view>
-                <view class="ff-db fs32 c-333 flexCenter w50p">{{item.value}}</view>
+        <view wx:for="{{yjphData}}" wx:key="*this">
+            <view class="flexCenter">
+                <view class="ff-pr fs32 c-333 flexCenter w50p m20">{{item.Tag}}</view>
+                <view class="ff-db fs32 c-333 flexCenter w50p m20">
+                  <view class="w120"> {{item.Val.rank + '/' + item.Val.total_num}} </view>
+                  <image class="ml30 {{item.Val.good == 1 ? 'opacity1' : 'opacity0'}}" mode="aspectFit" src="../../resource/image/good_red.png" style="width:30rpx;height:30rpx;"></image>
+                </view>
             </view>
             <view class="h3 bc-DADADA ml20"></view>
         </view>
-        <view class="ff-pr fs26 c-6C8AB6 flexCenter mb30 mt30" bindtap="yjphMore">{{isyjphMore ? '收起' : '展开更多'}}<image class="ml10" src="{{isyjphMore ? '../../resource/image/arrow-up.png' : '../../resource/image/arrow-down.png'}}" style="width:20rpx;height:20rpx;"></image></view>
+        <view class="ff-pr fs26 c-6C8AB6 flexCenter mb30 mt30" bindtap="yjphMore" hidden="{{arrayData.fund_rank.data.History.length <= 5}}">{{isyjphMore ? '收起' : '展开更多'}}<image class="ml10" src="{{isyjphMore ? '../../resource/image/arrow-up.png' : '../../resource/image/arrow-down.png'}}" style="width:20rpx;height:20rpx;"></image></view>
     </view>
     <view class="border mt20 bc-fff" hidden="{{!arrayData.fund_manager.data.Name}}">
-        <view class="ff-pr fs34 c-333 m30">基金经理</view>
+        <view class="ff-pr fs36 c-333 m30">基金经理</view>
         <view class="h3 bc-DADADA"></view>
         <view class="flexCenter flexJustifyBetween" bindtap="jumpMemberDetail">
             <view class="flexCenter flexJustifyStart m30">
-                <image src="../../resource/image/Oval.png" style="width:100rpx;height:100rpx;"></image>
+                <image class="" src="{{face}}" style="width:100rpx;height:100rpx;border-radius:50rpx;"></image>
                 <view class="ml30">
-                    <view class="flexCenter flexJustifyStart">
-                        <text class="ff-pr fs30 c-333">{{arrayData.fund_manager.data.Name}}</text>
-                        <text class="ff-pr fs26 c-666 ml30">(管理基金: {{arrayData.fund_manager.data.FundNum}}只)</text>
-                    </view>
-                    <view>
-                        <text class="ff-pr fs26 c-333">从业日期 </text>
-                        <text class="ff-pr fs26 c-333">{{arrayData.fund_manager.data.BeginWorkDate}}</text>
-                        <text class="ff-pr fs26 c-333">  从业年均回报 </text>
-                        <text class="ff-pr fs26 {{WxMethod.compareZero(arrayData.fund_manager.data.AverageAnnualReturn)}}">{{WxMethod.floatCut(arrayData.fund_manager.data.AverageAnnualReturn)}}%</text>
+                    <view class="flexCenter flexDirectionColumn flexAlignStart">
+                        <view>
+                            <text class="ff-pr fs30 c-333">{{arrayData.fund_manager.data.Name}}</text>
+                            <text class="ff-pr fs26 c-666 ml30">(管理基金: {{arrayData.fund_manager.data.FundNum}}只)</text>
+                        </view>
+                        <view>
+                            <text class="ff-pr fs26 c-333">从业日期 </text>
+                            <text class="ff-pr fs26 c-333">{{arrayData.fund_manager.data.BeginWorkDate}}</text>
+                        </view>
+                        <view>
+                            <text class="ff-pr fs26 c-333">  从业年均回报 </text>
+                            <text class="ff-pr fs26 {{WxMethod.compareZero(arrayData.fund_manager.data.AverageAnnualReturn)}}">{{WxMethod.floatCut(arrayData.fund_manager.data.AverageAnnualReturn,2,false,true)}}%</text>
+                        </view>
                     </view>
                 </view>
             </view>
             <image class="mr30" src="../../resource/image/arrow-right.png" style="width:25rpx;height:25rpx;"></image>
         </view>
     </view>
-    <view class="border mt20 bc-fff mb30">
-        <view class="ff-pr fs34 c-333 m30">相关资讯</view>
+    <view class="border bc-fff mt20" hidden="{{!messageData.length}}">
+        <view class="ff-pr fs36 c-333 m30">相关资讯</view>
         <view class="h3 bc-DADADA"></view>
         <view  wx:for="{{messageData}}" wx:key="*this" hidden="{{!item.RelatedInfoID}}" data-relatedinfoid="{{item.RelatedInfoID}}" bindtap="newsClick">
-            <view class="flexCenter flexJustifyBetween">
-                <view class="flexCenter flexDirectionColumn flexAlignStart m30">
-                    <view class="ff-pr fs28 c-333">
+            <view class="flexCenter flexJustifyBetween ml30 mr30">
+                <view class="flexCenter flexDirectionColumn flexAlignStart mt30 mb30">
+                    <view class="ff-db fs30 c-333">
                         {{item.RelatedInfoTitle}}
                     </view>
-                    <view class="ff-pr fs24 c-666 mt5">
+                    <view class="ff-pr fs24 c-666 mt10">
                         {{item.RelatedInfoSource + '    ' + item.RelatedInfoDate}}
                     </view>
                 </view>
-                <image class="mr30" src="../../resource/image/arrow-right.png" style="width:25rpx;height:25rpx;"></image>
+                <image src="../../resource/image/arrow-right.png" style="width:25rpx;height:25rpx;"></image>
             </view>
             <view class="h3 bc-DADADA ml20"></view>
         </view>

@@ -20,9 +20,20 @@ var getCookie = function () {
 }
 
 
+//存取cookie
+var setFace = function (value) {
+  wx.setStorageSync(StaticString.face, value)
+}
+
+var getFace = function () {
+  return wx.getStorageSync(StaticString.face)
+}
+
 module.exports = {
   setIsLogin: setIsLogin,
   getIsLogin: getIsLogin,
   setCookie: setCookie,
-  getCookie: getCookie
+  getCookie: getCookie,
+  setFace: setFace,
+  getFace: getFace
 }

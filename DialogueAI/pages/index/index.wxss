@@ -18,10 +18,10 @@ page {
     height:366rpx;
 }
 
-.content {
-    left:20rpx;
-    top:20rpx;
-    right:20rpx;
+.contentBase {
+    left:0;
+    top:0;
+    right:0;
 }
 
 .cell {

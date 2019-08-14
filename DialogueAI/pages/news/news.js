@@ -3,6 +3,9 @@
 // const app = getApp()
 
 var SendReq = require('../../public/network/sendreq.js')
+var PublicUserdefault = require('../../public/method/publicUserdefault.js')
+
+var code
 
 Page({
 
@@ -12,10 +15,15 @@ Page({
     type: 0,
     EntityName: '',
     entityResData: '',
-    Resume: ''
+    Resume: '',
+    face: ''
   },
 
   onLoad: function (options) {
+
+    this.setData({
+      face: PublicUserdefault.getFace()
+    })
 
     var params = {
       RelatedInfoID: options.relatedinfoid
@@ -66,11 +74,17 @@ Page({
       type = 2
       EntityName = arr[0]
       TypeCode = '02_' + arr[1]
+
+      code = arr[1]
+
     }  else if (item.indexOf(',03') != -1) {
       var arr = item.split(',03_')
       type = 3
       EntityName = arr[0]
       TypeCode = '03_' + arr[1]
+
+      code = 'industry_' + arr[1]
+
       this.setData({
         EntityName: EntityName
       })
@@ -90,6 +104,14 @@ Page({
       type = 5
       EntityName = arr[0]
       TypeCode = '05'
+      this.setData({
+        EntityName: EntityName
+      })
+    } else if (item.indexOf(',06') != -1) {
+      var arr = item.split(',06')
+      type = 4
+      EntityName = arr[0]
+      TypeCode = '06'
       this.setData({
         EntityName: EntityName
       })
@@ -127,5 +149,28 @@ Page({
       type: 0
     })
   },
+
+  jumpDetail: function() {
+    var params = "FundCode=" + this.data.entityResData.FundCode + "&Fund300Index=" + this.data.entityResData.Fund300Index
+
+    wx.navigateTo({
+      url: '../detail/detail?' + params
+    })
+  },
+
+  jumpList: function () {
+    var params = "FundTypeCode=" + code + "&FundType=" + this.data.EntityName
+    wx.navigateTo({
+      url: '../list/list?' + params
+    })
+  },
+
+  jumpMemberDetail: function () {
+    var params = "FundManagerCode=" + code
+    wx.navigateTo({
+      url: '../memberDetail/memberDetail?' + params
+    })
+  }
+
 
 })

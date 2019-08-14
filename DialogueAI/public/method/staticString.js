@@ -7,16 +7,12 @@ const isLogin = "IsLogin"
 const cookieStr = "CookieStr"
 const  kqqMap = "OGMBZ-IC5WO-BF4WF-SXPXP-NOYKT-XSFPQ"    //http://lbs.qq.com/console/mykey.html  腾讯位置服务key
 
-const appId = "test"
-const reqSource = 1
-const secret = "test"
+const face = "face"
 
 module.exports = {
   mainUrl: mainUrl,
   isLogin: isLogin,
   cookieStr:cookieStr,
   kqqMap: kqqMap,
-  appId: appId,
-  reqSource: reqSource,
-  secret: secret
+  face: face
 }
